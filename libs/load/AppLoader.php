@@ -8,12 +8,16 @@
 				}
 			}
 		}
-		public function eossInit(&$eosscont) {
+		public function eossInit(&$eosscont,$refresh) {
 			$matches=preg_grep("/([a-zA-Z])+EOSS\.php/",$this->app);
 			foreach($matches as $match) {
 				include DIR_APP.$match;
 				$cls=explode('.',$match);
-				array_push($eosscont,new $cls[0]);
+				$eoss=new $cls[0];
+				array_push($eosscont,$eoss);
+				if($refresh==true) {
+					setcookie($cls[0], "", time()-3600, '/', $_SERVER['SERVER_NAME']);
+				}
 			}
 		}
 	}

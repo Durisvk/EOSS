@@ -8,7 +8,9 @@
 		}
 		public function setFile($dir) {
 			$this->file=$dir;
-			$this->csiAnalyze=new CSIAnalyze($dir);
+			$obj = new ReflectionClass($this->eoss);
+			$eossfile = $obj->getFileName();
+			$this->csiAnalyze=new CSIAnalyze($dir,$eossfile);
 			$this->eoss->setGenCsi();
 		}
 		public function getFile() {

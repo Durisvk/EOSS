@@ -1,4 +1,6 @@
 {
 	"value":"val",
-	"html":"html"
+	"html":"html",
+	"width":"width",
+	"height":"height"
 }

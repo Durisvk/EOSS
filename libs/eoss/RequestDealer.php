@@ -17,18 +17,19 @@
 	define('DIR_DATA',"../../libs/data/");
 	include DIR_APP . $_GET['eoss'] . ".php";
 	$eoss=new $_GET['eoss'];
-	ModuleGlobal::setClassVariables($eoss);
+	if(isset($_COOKIE[$_GET['eoss']])) {ModuleGlobal::setClassVariables($eoss,$_GET['eoss']);}
 	foreach(json_decode($_GET['values']) as $value) {
 		$id=$value->id;
 		$eoss->csi->$id->value=$value->val;
 	}
+	if (isset($_GET['curValue'])) {
+		$eoss->csi->$_GET['id']->value=$_GET['curValue'];
+	}
 	$eoss->bind();
-	
 	//DO FUNCTION...
 	$bind_event=$eoss->csi->$_GET['id']->$_GET['event'];
-
-	$eoss->$bind_event();
+	isset($_GET['param']) ? $eoss->$bind_event($_GET['param']) : $eoss->$bind_event();
 	ModuleGlobal::writeJsResponse($eoss,$_GET['id'].$_GET['event']);
 	//...and then
-	ModuleGlobal::getClassVariables($eoss);
+	ModuleGlobal::getClassVariables($eoss,$_GET['eoss']);
 	
