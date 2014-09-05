@@ -22,4 +22,9 @@
 		public function load() {
 			
 		}
+		public $redirect=null;
+		public function redirect($eoss=null) {
+			isset($eoss) ? $this->redirect=$eoss : $this->redirect=get_class($this);
+			setcookie("curEOSS",$this->redirect,time()+99999, '/', $_SERVER['SERVER_NAME']);
+		}
 	}

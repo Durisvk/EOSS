@@ -1,2 +1,3 @@
-	"hpage": "layout.html",
+	"home_eoss": "loginEOSS",
+	"layout_dir": "view/",
 	"refresh": true

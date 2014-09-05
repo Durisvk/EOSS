@@ -15,8 +15,8 @@
 	define('DIR_LIBS',"../../libs/");
 	define('DIR_APP',"../../app/");
 	define('DIR_DATA',"../../libs/data/");
-	include DIR_APP . $_GET['eoss'] . ".php";
-	$eoss=new $_GET['eoss'];
+	$app=new AppLoader;
+	$eoss=$app->eossInit($_GET['eoss']);
 	if(isset($_COOKIE[$_GET['eoss']])) {ModuleGlobal::setClassVariables($eoss,$_GET['eoss']);}
 	foreach(json_decode($_GET['values']) as $value) {
 		$id=$value->id;

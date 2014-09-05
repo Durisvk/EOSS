@@ -116,10 +116,12 @@
 			$eoss=self::jsonToEoss($eoss,json_decode($json));
 		}
 		static function jsonToEoss ($eoss,$json) {
+		print_r($json);
 			foreach ($json as $key=>$val) {
 				if(is_object($val)) {
 					foreach ($val as $elkey=>$elval) {
 						foreach($elval as $attkey=>$attval) {
+						echo "<br>";print_r($attkey);
 							$eoss->$key->$elkey->$attkey=$attval;
 						}
 					}
@@ -133,15 +135,19 @@
 		public static function writeJsResponse($eoss,$fname) {
 			$listOfAttr=json_decode(file_get_contents(DIR_LIBS."eoss/attributeList.dat"));
 			$js="function ".$fname."() {";
-			foreach (get_object_vars($eoss->csi) as $element) {
-				foreach($listOfAttr as $key=>$attr) {
-					if(property_exists($element,$key)) {
-						$js.="$( '#".$element->id."' ).".$attr."(\n'";
-						$js.=preg_replace( "/\r|\n/", "", $element->$key);
-						print_r($key);
-						$js.="');\n";
+			if(!isset($eoss->redirect)) {
+				foreach (get_object_vars($eoss->csi) as $element) {
+					foreach($listOfAttr as $key=>$attr) {
+						if(property_exists($element,$key)) {
+							$js.="$( '#".$element->id."' ).".$attr."(\n'";
+							$js.=preg_replace( "/\r|\n/", "", $element->$key);
+							print_r($key);
+							$js.="');\n";
+						}
 					}
 				}
+			} else {
+				$js.="location.reload();";
 			}
 			$js.="}";
 			$genjs=fopen(DIR_DATA . "genJs/genFunctions.js", "w") or die("Check out your permissions on file libs/data/!");
@@ -185,5 +191,5 @@
 				}
 			}
 			return $line_number;
-		}	
+		}
 }

@@ -3,8 +3,8 @@
 		public $timeStart;
 		public $timeEnd;
 		public $showLinda;
-		public static function showError($text,$eossfile,$key) {
-			self::outputLinda($text,$eossfile,$key);
+		public static function showError($text,$file,$key) {
+			self::outputLinda($text,$file,$key);
 		}
 		private function outputLinda($text,$errfile,$key) {
 			$file=file_get_contents($errfile);

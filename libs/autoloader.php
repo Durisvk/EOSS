@@ -29,7 +29,7 @@
 	$eosscontainer=array();
 	$eossdir=array();
 	$apploader = new AppLoader;
+	$apploader->eossInit();
 	include "RequireFactory.php";
-	$apploader->eossInit($eosscontainer,$config->refresh);
 ?>
 	
